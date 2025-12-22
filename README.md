@@ -87,7 +87,7 @@ This assumes the `ssm` console script is defined in `pyproject.toml` pointing at
 ### Using pipx (recommended for system-wide CLI)
 
 ```
-cd /path/to/ssm-simplesystemmonitor
+cd /path/to/ssm
 pipx install .
 ```
 
@@ -104,7 +104,7 @@ ssm
 To update after pulling new changes:
 
 ```
-cd /path/to/ssm-simplesystemmonitor
+cd /path/to/ssm
 pipx reinstall .
 ```
 
@@ -114,7 +114,7 @@ pipx reinstall .
 ```
 sudo tee /usr/local/bin/ssm << 'EOF'
 #!/bin/bash
-cd /home/youruser/dev/ssm-simplesystemmonitor
+cd /path/to/ssm
 exec poetry run python -m src.main "$@"
 EOF
 sudo chmod +x /usr/local/bin/ssm
