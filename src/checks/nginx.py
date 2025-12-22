@@ -11,7 +11,7 @@ class NginxCheck(BaseCheck):
     @property
     def name(self) -> str:
         return f"Nginx Errors (last {self.hours} hours)"
-    
+
     def run(self):
         since_time = (datetime.now() - timedelta(hours=self.hours)).strftime('%Y-%m-%d %H:%M:%S')
         cmd = f"journalctl -u nginx --since '{since_time}' --no-pager | grep -E '\\[error\\]|\\[crit\\]|\\[alert\\]|\\[emerg\\]'"
