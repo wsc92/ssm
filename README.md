@@ -250,17 +250,18 @@ sudo cp config/scanner.service /etc/systemd/system/
 sudo cp config/scanner.timer /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now scanner.timer
-
+```
 #Check scheduled runs
-
+```
 systemctl list-timers | grep scanner
+```
 #View last runs
-
+```
 journalctl -u scanner.service -n 50
 ```
 
 
-###Cron job example
+### Cron job example
 Run every 6 hours, write JSON, only output on issues
 ```
 0 */6 * * * /usr/local/bin/ssm --quiet --json /var/log/ssm/report.json
@@ -268,7 +269,7 @@ Run every 6 hours, write JSON, only output on issues
 
 ---
 
-##Development
+## Development
 
 Install dev dependencies
 ```
@@ -286,7 +287,6 @@ Type-check (if using mypy)
 ```
 poetry run mypy src/
 ```
-
 
 ### Adding a new check
 
