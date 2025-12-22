@@ -74,8 +74,6 @@ cd ssm-simplesystemmonitor
 
 Install dependencies and create venv
 ```
-```
-```
 poetry install
 ```
 Run via poetry
