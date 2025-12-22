@@ -1,11 +1,11 @@
-#SSM – Simple System Monitor
+# SSM – Simple System Monitor
 
 SSM (Simple System Monitor) is a modular, extensible Linux system health and security scanner.  
 It runs a series of focused checks (services, disk, memory, SSH, fail2ban, etc.), aggregates the results, and outputs a concise report suitable for terminals, automation, and monitoring integration. [file:1]
 
 ---
 
-##Features
+## Features
 
 - **Modular architecture** – Each check is its own module; easy to extend and test independently. [file:1]  
 - **Systemd/journalctl aware** – Uses systemd units and journal logs to detect failures, errors, and anomalies. [file:1]  
@@ -17,7 +17,7 @@ It runs a series of focused checks (services, disk, memory, SSH, fail2ban, etc.)
 
 ---
 
-##Core Checks
+## Core Checks
 
 SSM currently includes:
 
@@ -59,9 +59,9 @@ You can enable/disable or parameterize each check via YAML or CLI flags. [file:1
 ```
 
 ---
-##Installation
+## Installation
 
-###Using Poetry (development)\
+### Using Poetry (development)\
 
 ```
 git clone https://github.com/your-user/ssm-simplesystemmonitor.git
@@ -110,11 +110,9 @@ pipx reinstall .
 ```
 
 
-###Using a simple wrapper script (no packaging required)
+### Using a simple wrapper script (no packaging required)
 
 ```
-
-
 sudo tee /usr/local/bin/ssm << 'EOF'
 #!/bin/bash
 cd /home/youruser/dev/ssm-simplesystemmonitor
@@ -123,14 +121,13 @@ EOF
 sudo chmod +x /usr/local/bin/ssm
 ```
 
-
 ---
 
-##Configuration (YAML)
+## Configuration (YAML)
 
 SSM can run with defaults, but is designed to use a YAML config file. [file:1]
 
-###Generate a default config
+### Generate a default config
 
 Default path (e.g., ./config/scanner.yaml)
 ```
@@ -144,8 +141,6 @@ Or explicit path
 ```
 ssm --generate-config /etc/ssm/scanner.yaml
 ```
-
-
 
 ### Example `config/scanner.yaml`
 
@@ -272,7 +267,6 @@ Run every 6 hours, write JSON, only output on issues
 0 */6 * * * /usr/local/bin/ssm --quiet --json /var/log/ssm/report.json
 ```
 
-
 ---
 
 ##Development
@@ -308,5 +302,11 @@ The design keeps each check’s logic and thresholds localized while sharing com
 
 ## License
 
-MIT (or your preferred license – update this section and the repository’s license file accordingly).
+Copyright (c) 2025 William Craig
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
