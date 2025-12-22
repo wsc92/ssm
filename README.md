@@ -84,7 +84,7 @@ poetry run ssm --help
 
 This assumes the `ssm` console script is defined in `pyproject.toml` pointing at `src.main:main`.
 
-###Using pipx (recommended for system-wide CLI)
+### Using pipx (recommended for system-wide CLI)
 
 ```
 cd /path/to/ssm-simplesystemmonitor
