@@ -61,17 +61,18 @@ You can enable/disable or parameterize each check via YAML or CLI flags. [file:1
 ---
 ## Installation
 
-### Using Poetry (development)\
+### Using Poetry (development)
+
 
 ```
 git clone https://github.com/your-user/ssm-simplesystemmonitor.git
+```
+
+```
 cd ssm-simplesystemmonitor
 ```
 
 Install dependencies and create venv
-```
-```
-
 ```
 ```
 ```
