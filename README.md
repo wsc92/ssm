@@ -65,11 +65,11 @@ You can enable/disable or parameterize each check via YAML or CLI flags.
 
 
 ```
-git clone https://github.com/your-user/ssm-simplesystemmonitor.git
+git clone https://github.com/your-user/ssm.git
 ```
 
 ```
-cd ssm-simplesystemmonitor
+cd ssm
 ```
 
 Install dependencies and create venv
