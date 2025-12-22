@@ -1,19 +1,19 @@
 # SSM – Simple System Monitor
 
 SSM (Simple System Monitor) is a modular, extensible Linux system health and security scanner.  
-It runs a series of focused checks (services, disk, memory, SSH, fail2ban, etc.), aggregates the results, and outputs a concise report suitable for terminals, automation, and monitoring integration. [file:1]
+It runs a series of focused checks (services, disk, memory, SSH, fail2ban, etc.), aggregates the results, and outputs a concise report suitable for terminals, automation, and monitoring integration.
 
 ---
 
 ## Features
 
-- **Modular architecture** – Each check is its own module; easy to extend and test independently. [file:1]  
-- **Systemd/journalctl aware** – Uses systemd units and journal logs to detect failures, errors, and anomalies. [file:1]  
-- **Security focused** – SSH brute-force analysis, fail2ban status, recent SSH logins, nginx error inspection, PostgreSQL health. [file:1]  
-- **Configurable thresholds** – Disk and memory thresholds, restart limits, nginx/db error thresholds, and time windows. [file:1]  
-- **YAML configuration** – Central config file with sane defaults and per-check tuning. [file:1]  
-- **Multiple outputs** – Human-readable console output and structured JSON for automation. [file:1]  
-- **CLI-first design** – Select checks, tweak thresholds, change output, and generate config from the command line. [file:1]
+- **Modular architecture** – Each check is its own module; easy to extend and test independently.
+- **Systemd/journalctl aware** – Uses systemd units and journal logs to detect failures, errors, and anomalies.
+- **Security focused** – SSH brute-force analysis, fail2ban status, recent SSH logins, nginx error inspection, PostgreSQL health.
+- **Configurable thresholds** – Disk and memory thresholds, restart limits, nginx/db error thresholds, and time windows.
+- **YAML configuration** – Central config file with sane defaults and per-check tuning.
+- **Multiple outputs** – Human-readable console output and structured JSON for automation.
+- **CLI-first design** – Select checks, tweak thresholds, change output, and generate config from the command line.
 
 ---
 
@@ -21,17 +21,17 @@ It runs a series of focused checks (services, disk, memory, SSH, fail2ban, etc.)
 
 SSM currently includes:
 
-- **services** – Failed systemd services (`systemctl list-units --state=failed`). [file:1]  
-- **disk** – Disk space usage on `/dev*` filesystems with warning/critical thresholds. [file:1]  
-- **memory** – RAM usage derived from `free -m`, with configurable thresholds. [file:1]  
-- **fail2ban** – Ensures `fail2ban` is active and reports current/total banned IPs for the `sshd` jail. [file:1]  
-- **ssh** – Aggregates SSH failed/invalid logins, counts attacking IPs, and flags brute-force patterns. [file:1]  
-- **restarts** – Detects services with frequent restarts from the journal over a time window. [file:1]  
-- **nginx** – Scans nginx journal for errors and permission problems. [file:1]  
-- **database** – Checks PostgreSQL service status and error volume. [file:1]  
-- **logins** – Reports number of successful SSH logins over a recent window. [file:1]
+- **services** – Failed systemd services (`systemctl list-units --state=failed`).
+- **disk** – Disk space usage on `/dev*` filesystems with warning/critical thresholds.
+- **memory** – RAM usage derived from `free -m`, with configurable thresholds.
+- **fail2ban** – Ensures `fail2ban` is active and reports current/total banned IPs for the `sshd` jail.
+- **ssh** – Aggregates SSH failed/invalid logins, counts attacking IPs, and flags brute-force patterns.
+- **restarts** – Detects services with frequent restarts from the journal over a time window.
+- **nginx** – Scans nginx journal for errors and permission problems.
+- **database** – Checks PostgreSQL service status and error volume.
+- **logins** – Reports number of successful SSH logins over a recent window.
 
-You can enable/disable or parameterize each check via YAML or CLI flags. [file:1]
+You can enable/disable or parameterize each check via YAML or CLI flags.
 
 ---
 
@@ -82,7 +82,7 @@ poetry run ssm --help
 ```
 
 
-This assumes the `ssm` console script is defined in `pyproject.toml` pointing at `src.main:main`. [file:1]
+This assumes the `ssm` console script is defined in `pyproject.toml` pointing at `src.main:main`.
 
 ###Using pipx (recommended for system-wide CLI)
 
@@ -124,7 +124,7 @@ sudo chmod +x /usr/local/bin/ssm
 
 ## Configuration (YAML)
 
-SSM can run with defaults, but is designed to use a YAML config file. [file:1]
+SSM can run with defaults, but is designed to use a YAML config file.
 
 ### Generate a default config
 
@@ -192,7 +192,7 @@ ssm --config config/scanner.yaml
 ```
 
 
-CLI flags override config values. [file:1]
+CLI flags override config values.
 
 ---
 
@@ -235,7 +235,7 @@ ssm --verbose --log-file /var/log/ssm/scanner.log
 ```
 
 
-Exit code is non-zero if critical issues are detected, making it suitable for CI/CD and monitoring hooks. [file:1]
+Exit code is non-zero if critical issues are detected, making it suitable for CI/CD and monitoring hooks.
 
 ---
 
@@ -243,7 +243,7 @@ Exit code is non-zero if critical issues are detected, making it suitable for CI
 
 ### systemd service + timer (optional)
 
-The repository includes example units in `config/` that can be installed to run SSM periodically. [file:1]
+The repository includes example units in `config/` that can be installed to run SSM periodically.
 
 ```
 sudo cp config/scanner.service /etc/systemd/system/
@@ -291,11 +291,11 @@ poetry run mypy src/
 ### Adding a new check
 
 1. Create `src/checks/mycheck.py`.  
-2. Subclass the shared `BaseCheck` and implement `name` + `run()`. [file:1]  
-3. Register it in the main CLI wiring so it can be toggled via config/CLI. [file:1]  
+2. Subclass the shared `BaseCheck` and implement `name` + `run()`.
+3. Register it in the main CLI wiring so it can be toggled via config/CLI.
 4. Add unit tests under `tests/test_checks/`.  
 
-The design keeps each check’s logic and thresholds localized while sharing command execution, reporting, and configuration infrastructure. [file:1]
+The design keeps each check’s logic and thresholds localized while sharing command execution, reporting, and configuration infrastructure.
 
 ---
 
