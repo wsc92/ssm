@@ -1,0 +1,15 @@
+[Unit]
+Description=System Health & Security Scanner
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/bin/python3 -m src.main --json /var/log/scanner/report.json --log-file /var/log/scanner/scanner.log
+WorkingDirectory=/opt/security-scanner
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+

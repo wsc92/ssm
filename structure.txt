@@ -1,0 +1,40 @@
+scanner_project/
+├── src/
+│   ├── __init__.py
+│   ├── main.py                  # Entry point, CLI interface
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── scanner.py           # Orchestration logic
+│   │   ├── executor.py          # Shell command runner
+│   │   └── models.py            # Data classes for issues/warnings/info
+│   ├── checks/
+│   │   ├── __init__.py
+│   │   ├── base.py              # Abstract base check class
+│   │   ├── services.py          # Failed services check
+│   │   ├── disk.py              # Disk space check
+│   │   ├── memory.py            # Memory usage check
+│   │   ├── ssh.py               # SSH attack analysis
+│   │   ├── fail2ban.py          # fail2ban status check
+│   │   ├── restarts.py          # Service restart frequency
+│   │   ├── nginx.py             # Nginx error check
+│   │   ├── database.py          # PostgreSQL check
+│   │   └── logins.py            # Recent login check
+│   ├── reporting/
+│   │   ├── __init__.py
+│   │   ├── console.py           # Terminal output formatter
+│   │   └── json.py              # JSON export formatter
+│   └── utils/
+│       ├── __init__.py
+│       └── logging.py           # Centralized logging setup
+├── tests/
+│   ├── __init__.py
+│   ├── test_checks/
+│   │   ├── test_services.py
+│   │   ├── test_disk.py
+│   │   └── ...
+│   └── test_executor.py
+├── config/
+│   └── scanner.yaml             # Configurable thresholds
+├── pyproject.toml               # Dependencies & metadata
+└── README.md
+

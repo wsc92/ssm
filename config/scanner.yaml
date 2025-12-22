@@ -1,0 +1,42 @@
+# Security Scanner Configuration
+
+# Threshold settings for system checks
+thresholds:
+  disk_warn: 80           # Disk space warning threshold (%)
+  disk_crit: 90           # Disk space critical threshold (%)
+  memory_warn: 80         # Memory usage warning threshold (%)
+  memory_crit: 90         # Memory usage critical threshold (%)
+  restart_threshold: 20   # Service restart warning threshold
+  nginx_error_threshold: 100
+  db_error_threshold: 10
+
+# Check-specific configuration
+checks:
+  enabled: true
+  ssh_days: 7            # Days to analyze SSH attacks
+  nginx_hours: 24        # Hours to check nginx logs
+  login_hours: 24        # Hours to check recent logins
+
+# Output configuration
+output:
+  format: console        # Options: console, json, both
+  json_file: null        # Path to JSON output file (null = disabled)
+  log_file: null         # Path to log file (null = disabled)
+  verbose: false         # Enable verbose logging
+  quiet: false           # Suppress output unless issues found
+
+# List of checks to run (comment out to disable)
+enabled_checks:
+  - services
+  - disk
+  - memory
+  - fail2ban
+  - ssh
+  - restarts
+  - nginx
+  - database
+  - logins
+
+# Command execution timeout (seconds)
+command_timeout: 30
+

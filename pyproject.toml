@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "ssm-simplesystemmonitor"
+version = "0.1.0"
+description = "Modular Security Scanner - Simple to extend, add what you want"
+authors = ["wsc92 <wscraig92@yahoo.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyyaml = "^6.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4"
+pytest-cov = "^4.1"
+black = "^23.0"
+mypy = "^1.0"
+types-pyyaml = "^6.0"
+
+[tool.poetry.scripts]
+ssm = "src.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+

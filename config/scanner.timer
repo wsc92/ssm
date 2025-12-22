@@ -1,0 +1,12 @@
+[Unit]
+Description=Run security scanner every 6 hours
+Requires=scanner.service
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=6h
+Unit=scanner.service
+
+[Install]
+WantedBy=timers.target
+
