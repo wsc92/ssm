@@ -65,7 +65,7 @@ You can enable/disable or parameterize each check via YAML or CLI flags.
 
 
 ```
-git clone https://github.com/your-user/ssm.git
+git clone https://github.com/wsc92/ssm.git
 ```
 
 ```
