@@ -65,11 +65,11 @@ You can enable/disable or parameterize each check via YAML or CLI flags.
 
 
 ```
-git clone https://github.com/your-user/ssm-simplesystemmonitor.git
+git clone https://github.com/wsc92/ssm.git
 ```
 
 ```
-cd ssm-simplesystemmonitor
+cd ssm
 ```
 
 Install dependencies and create venv
@@ -84,10 +84,10 @@ poetry run ssm --help
 
 This assumes the `ssm` console script is defined in `pyproject.toml` pointing at `src.main:main`.
 
-###Using pipx (recommended for system-wide CLI)
+### Using pipx (recommended for system-wide CLI)
 
 ```
-cd /path/to/ssm-simplesystemmonitor
+cd /path/to/ssm
 pipx install .
 ```
 
@@ -104,7 +104,7 @@ ssm
 To update after pulling new changes:
 
 ```
-cd /path/to/ssm-simplesystemmonitor
+cd /path/to/ssm
 pipx reinstall .
 ```
 
@@ -114,7 +114,7 @@ pipx reinstall .
 ```
 sudo tee /usr/local/bin/ssm << 'EOF'
 #!/bin/bash
-cd /home/youruser/dev/ssm-simplesystemmonitor
+cd /path/to/ssm
 exec poetry run python -m src.main "$@"
 EOF
 sudo chmod +x /usr/local/bin/ssm
