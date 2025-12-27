@@ -35,8 +35,13 @@ class RecentLoginsCheck(BaseCheck):
 
             if logins:
                 self.result.info.append(
-                    f"Found {len(logins)} successful logins in the last {self.hours} hours"
+                    f"Found {len(logins)} successful login(s) in the last {self.hours} hours:"
                 )
+                
+                for login in logins:
+                    self.result.info.append(
+                        f"  [{login['time']}] User '{login['user']}' from {login['ip']}"
+                    )
 
         return self.result
 
