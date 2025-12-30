@@ -17,7 +17,7 @@ class ServiceDetailsCheck(BaseCheck):
         """Extract restart/failure reasons from journal."""
         output = self.executor.run(
             f"journalctl -u {service_name} --since '{self.days} days ago' "
-            f"-p err..warning -n 10 --no-pager"
+            f"-p err -n 10 --no-pager"
         )
         
         reasons = []
@@ -32,7 +32,7 @@ class ServiceDetailsCheck(BaseCheck):
                     if clean_line and len(clean_line) > 10:
                         reasons.append(clean_line[:100])
         
-        return reasons[:5]  # Top 5 most recent
+        return reasons[:5]
 
     def run(self):
         for service in self.services:
@@ -47,29 +47,11 @@ class ServiceDetailsCheck(BaseCheck):
             if restart_count >= self.restart_threshold:
                 reasons = self._get_restart_reasons(service)
                 
-                details = f"Service '{service}' has restarted {restart_count} times in the last {self.days} days"
-                
+                # Only add info about errors, not a duplicate warning
                 if reasons:
-                    self.result.warnings.append(
-                        Issue(
-                            type="Service Instability",
-                            severity="MEDIUM",
-                            details=details,
-                            metadata={"recent_errors": reasons}
-                        )
-                    )
-                    # Add error details to info
                     self.result.info.append(f"Recent errors for {service}:")
                     for reason in reasons:
                         self.result.info.append(f"  • {reason}")
-                else:
-                    self.result.warnings.append(
-                        Issue(
-                            type="Service Instability",
-                            severity="MEDIUM",
-                            details=details
-                        )
-                    )
 
         return self.result
 
