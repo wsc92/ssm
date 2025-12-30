@@ -10,12 +10,16 @@ class Fail2BanCheck(BaseCheck):
 
     def _get_banned_ips(self, jail: str = "sshd") -> List[str]:
         """Extract list of currently banned IPs from a specific jail."""
-        output = self.executor.run(f"fail2ban-client get {jail} banip 2>/dev/null")
+        status_output = self.executor.run(f"sudo fail2ban-client status {jail} 2>/dev/null")
         
-        if output and output.strip():
-            # Command returns IPs space-separated on one line
-            ips = output.strip().split()
-            return [ip for ip in ips if ip and re.match(r'\d+\.\d+\.\d+\.\d+', ip)]
+        if status_output:
+            # Look for "Banned IP list:" followed by IPs
+            banned_match = re.search(r'Banned IP list:\s+(.+?)(?:\n|$)', status_output, re.DOTALL)
+            if banned_match:
+                ip_str = banned_match.group(1).strip()
+                if ip_str:
+                    ips = ip_str.split()
+                    return [ip for ip in ips if re.match(r'^\d+\.\d+\.\d+\.\d+$', ip)]
         
         return []
 
@@ -31,8 +35,8 @@ class Fail2BanCheck(BaseCheck):
             ))
             return self.result
 
-        # Check banned IPs
-        output = self.executor.run("fail2ban-client status sshd 2>/dev/null")
+        # Check banned IPs - needs sudo
+        output = self.executor.run("sudo fail2ban-client status sshd 2>/dev/null")
 
         if output:
             banned_match = re.search(r'Currently banned:\s+(\d+)', output)
@@ -42,22 +46,27 @@ class Fail2BanCheck(BaseCheck):
                 currently_banned = int(banned_match.group(1))
                 total_banned = int(total_banned_match.group(1))
                 
-                # Get list of banned IPs if any exist
                 if currently_banned > 0:
                     banned_ips = self._get_banned_ips("sshd")
                     if banned_ips:
+                        ip_list = ', '.join(banned_ips)
                         self.result.info.append(
-                            f"fail2ban: {currently_banned} currently banned IPs - {', '.join(banned_ips[:10])}"
-                            + (f" (+{len(banned_ips)-10} more)" if len(banned_ips) > 10 else "")
+                            f"fail2ban: {currently_banned} IPs currently banned - {ip_list}"
                         )
                     else:
                         self.result.info.append(
-                            f"fail2ban is active: {currently_banned} currently banned, {total_banned} total banned"
+                            f"fail2ban: {currently_banned} IPs currently banned, {total_banned} total"
                         )
                 else:
                     self.result.info.append(
-                        f"fail2ban is active: no IPs currently banned, {total_banned} total banned"
+                        f"fail2ban is active: 0 IPs currently banned, {total_banned} total historical bans"
                     )
+            else:
+                # Fallback if we can't parse counts
+                self.result.info.append("fail2ban is active")
+        else:
+            # No output from fail2ban-client (likely permissions issue)
+            self.result.info.append("fail2ban is active (unable to query jail status - check sudo permissions)")
  
         return self.result
 
