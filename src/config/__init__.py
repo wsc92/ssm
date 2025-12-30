@@ -39,7 +39,7 @@ class ScannerConfig:
     output: OutputConfig = field(default_factory=OutputConfig)
     enabled_checks: List[str] = field(default_factory=lambda: [
         'services', 'disk', 'memory', 'fail2ban', 'ssh',
-        'restarts', 'nginx', 'database', 'logins'
+        'restarts', 'service_details' 'nginx', 'database', 'logins'
     ])
     command_timeout: int = 30
     

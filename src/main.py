@@ -5,7 +5,7 @@ from pathlib import Path
 
 from src.core.scanner import SystemScanner
 from src.core.executor import CommandExecutor
-from src.checks import disk, memory, services, ssh, fail2ban, restarts, nginx, database, logins
+from src.checks import disk, memory, services, ssh, fail2ban, restarts, nginx, database, logins, service_details
 from src.reporting.console import ConsoleReporter
 from src.reporting.json import JSONReporter
 from src.utils.logging import setup_logging
@@ -36,7 +36,6 @@ Examples:
                        help='Path to YAML configuration file')
     parser.add_argument('--generate-config', nargs='?', const='scanner.yaml', metavar='FILE',
                        help='Generate default config file (default: config/scanner.yaml)')
-
     parser.add_argument('--json', metavar='FILE',
                        help='Export results to JSON file')
     parser.add_argument('--verbose', '-v', action='store_true',
@@ -73,6 +72,7 @@ def get_available_checks():
         'fail2ban': (fail2ban, 'Fail2BanCheck'),
         'ssh': (ssh, 'SSHAttackCheck'),
         'restarts': (restarts, 'ServiceRestartsCheck'),
+        'service_details': (service_details, 'ServiceDetailsCheck'),
         'nginx': (nginx, 'NginxCheck'),
         'database': (database, 'DatabaseCheck'),
         'logins': (logins, 'RecentLoginsCheck'),
@@ -189,6 +189,12 @@ def main():
             kwargs = {
                 'days': 7,
                 'threshold': config.thresholds.restart_threshold
+            }
+        elif check_name == 'service_details':
+            kwargs = {
+                'services': ['carriersearch-backend.service'],
+                'days': 7,
+                'restart_threshold': config.thresholds.restart_threshold
             }
         elif check_name == 'nginx':
             kwargs = {

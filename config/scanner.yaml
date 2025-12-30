@@ -33,6 +33,7 @@ enabled_checks:
   - fail2ban
   - ssh
   - restarts
+  - service_details
   - nginx
   - database
   - logins
