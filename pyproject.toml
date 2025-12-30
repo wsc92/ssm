@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ssm-simplesystemmonitor"
+name = "ssm"
 version = "0.1.0"
 description = "Modular Security Scanner - Simple to extend, add what you want"
 authors = ["wsc92 <wscraig92@yahoo.com>"]
